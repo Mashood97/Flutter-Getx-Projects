@@ -1,4 +1,4 @@
-# school_management_system
+# Expense App Flutter with GETX
 
 A new Flutter project.
 
