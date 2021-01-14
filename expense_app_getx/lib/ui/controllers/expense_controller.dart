@@ -100,6 +100,7 @@ class ChangeThemeController extends GetxController {
 
   @override
   void dispose() {
+    super.dispose();
     _expenseAmountTextEditingController.dispose();
     _expenseNameTextEditingController.dispose();
   }
