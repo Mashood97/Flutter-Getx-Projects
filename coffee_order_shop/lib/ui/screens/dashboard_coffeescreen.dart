@@ -1,18 +1,24 @@
 import 'package:coffee_order_shop/ui/controllers/coffee_controller.dart';
+import 'package:coffee_order_shop/ui/controllers/order_controller.dart';
+import 'package:coffee_order_shop/ui/models/Order.dart';
 import 'package:coffee_order_shop/utils/common_constants.dart';
 import 'package:coffee_order_shop/widgets/animated_searchbar.dart';
 import 'package:coffee_order_shop/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DashboardCoffeeScreen extends StatelessWidget {
   static const routeNamed = '/dashboard';
 
   final CoffeeController _coffeeController = Get.find();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
+  Order order;
 
   @override
   Widget build(BuildContext context) {
+    order = box.read('Order');
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -105,6 +111,18 @@ class DashboardCoffeeScreen extends StatelessWidget {
       ),
       drawerScrimColor: Colors.black54,
       drawer: MainDrawer(),
+      floatingActionButton: order == null
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () {
+                print(order.totalPrice);
+              },
+              child: Icon(
+                Icons.add_shopping_cart_rounded,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.pink.shade300,
+            ),
     );
   }
 }

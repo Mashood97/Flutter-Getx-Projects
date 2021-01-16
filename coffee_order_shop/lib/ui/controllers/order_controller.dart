@@ -1,13 +1,24 @@
+import 'dart:convert';
+
 import 'package:coffee_order_shop/ui/models/Coffee.dart';
 import 'package:coffee_order_shop/ui/models/Order.dart';
+import 'package:coffee_order_shop/ui/screens/dashboard_coffeescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class OrderController extends GetxController {
-  var _order = Order();
+  Order _order;
 
   var _totalPrice = 0.0.obs;
 
+  var _selectedCupSize = 1.obs;
+
+  get getSelectedCupSize => _selectedCupSize.value;
+
+  var _selectedSugarCubes = 1.obs;
+
+  get getSelectedSugarCubes => _selectedSugarCubes.value;
   Coffee _coffee;
 
   var _quantity = 1.obs;
@@ -17,6 +28,14 @@ class OrderController extends GetxController {
   get getTotalPrice => _totalPrice.value;
 
   Coffee get getCoffee => _coffee;
+
+  setSelectedCupSize(val) {
+    _selectedCupSize.value = val;
+  }
+
+  setSelectedSugarCube(val) {
+    _selectedSugarCubes.value = val;
+  }
 
   void getCoffeeArgs() {
     _coffee = Get.arguments;
@@ -61,6 +80,12 @@ class OrderController extends GetxController {
   }
 
   addToCart() {
+    if (_selectedCupSize.value == 2) {
+      _totalPrice += 5;
+    }
+    if (_selectedCupSize.value == 3) {
+      _totalPrice += 10;
+    }
     if (_quantity.value > 0 && _totalPrice.value != 0) {
       _order = Order(
         coffee: _coffee,
@@ -68,14 +93,40 @@ class OrderController extends GetxController {
             '${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}',
         quantity: _quantity.value,
         totalPrice: _totalPrice.value,
+        cupsize: _selectedCupSize.value == 1
+            ? 'Small'
+            : _selectedCupSize.value == 2
+                ? 'Medium'
+                : 'Large',
+        sugarcbes: _selectedSugarCubes.value,
       );
 
-      showSuccessSnackBar(
-        'Order Added Successfully',
-      );
+      if (_order != null) {
+        saveOrderToStorage(Order(
+          coffee: _order.coffee,
+          orderId: _order.orderId,
+          quantity: _order.quantity,
+          totalPrice: _order.totalPrice,
+          cupsize: _order.cupsize,
+          sugarcbes: _order.sugarcbes,
+        ));
+
+        showSuccessSnackBar(
+          'Order Added Successfully',
+        );
+        Get.offNamed(DashboardCoffeeScreen.routeNamed);
+      } else {
+        showErrorSnackBar('Order not saved, Try again later!');
+      }
     } else {
       showErrorSnackBar('Please select quantity');
     }
+  }
+
+  saveOrderToStorage(Order order) {
+    final _box = GetStorage();
+    _box.write('Order', order);
+    print(_box.read('Order'));
   }
 
   @override

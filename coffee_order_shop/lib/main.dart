@@ -6,11 +6,13 @@ import 'package:coffee_order_shop/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'ui/controllers/coffee_controller.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   Get.put(SplashController());
   Get.put(CoffeeController());
   runApp(MyApp());

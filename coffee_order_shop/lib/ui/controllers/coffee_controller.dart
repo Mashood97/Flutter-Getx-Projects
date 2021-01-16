@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:coffee_order_shop/ui/models/Coffee.dart';
+import 'package:coffee_order_shop/ui/models/Order.dart';
 import 'package:coffee_order_shop/ui/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class CoffeeController extends GetxController {
   var _coffeeList = List<Coffee>().obs;
 
   List<Coffee> get getCoffeeList => _coffeeList;
+
   @override
   void onInit() {
     super.onInit();
@@ -57,8 +62,7 @@ class CoffeeController extends GetxController {
     _coffeeList.addAll(list);
   }
 
-
-  navigateToOrderScreen(int index){
-    Get.toNamed(OrderScreen.routeName,arguments:_coffeeList[index]);
+  navigateToOrderScreen(int index) {
+    Get.toNamed(OrderScreen.routeName, arguments: _coffeeList[index]);
   }
 }

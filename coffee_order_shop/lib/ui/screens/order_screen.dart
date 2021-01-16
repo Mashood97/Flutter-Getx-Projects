@@ -67,199 +67,225 @@ class OrderScreen extends StatelessWidget {
 
   Widget buildAddToCartButton(BuildContext context) {
     return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 60,
-                      child: RaisedButton(
-                        onPressed: () {
-                          _orderController.addToCart();
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.add_shopping_cart,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Add to Cart',
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                          ],
-                        ),
-                        splashColor: Theme.of(context).accentColor,
-                        color: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  );
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: double.infinity,
+        height: 60,
+        child: RaisedButton(
+          onPressed: () {
+            _orderController.addToCart();
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.add_shopping_cart,
+                color: Colors.white,
+              ),
+              Text(
+                'Add to Cart',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ],
+          ),
+          splashColor: Theme.of(context).accentColor,
+          color: Theme.of(context).primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildSugarWidget(BuildContext context) {
     return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Chip(
-                        label: Text(
-                          'One',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.pink.shade300,
-                      ),
-                      Chip(
-                        label: Text(
-                          'Two',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.pink.shade300,
-                      ),
-                      Chip(
-                        label: Text(
-                          'Three',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.pink.shade300,
-                      ),
-                    ],
-                  );
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Obx(
+          () => Expanded(
+            child: RadioListTile(
+              title: FittedBox(
+                  child: Text(
+                'One',
+                style: Theme.of(context).textTheme.headline6,
+              )),
+              value: 1,
+              onChanged: (val) {
+                _orderController.setSelectedSugarCube(val);
+              },
+              groupValue: _orderController.getSelectedSugarCubes,
+            ),
+          ),
+        ),
+        Obx(
+          () => Expanded(
+            child: RadioListTile(
+              title: FittedBox(
+                child:
+                    Text('Two', style: Theme.of(context).textTheme.headline6),
+              ),
+              value: 2,
+              onChanged: (val) {
+                _orderController.setSelectedSugarCube(val);
+              },
+              groupValue: _orderController.getSelectedSugarCubes,
+            ),
+          ),
+        ),
+        Obx(
+          () => Expanded(
+            child: RadioListTile(
+              title: FittedBox(
+                  child: Text('Three',
+                      style: Theme.of(context).textTheme.headline6)),
+              value: 3,
+              onChanged: (val) {
+                _orderController.setSelectedSugarCube(val);
+              },
+              groupValue: _orderController.getSelectedSugarCubes,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget buildCupSizeWidget(BuildContext context) {
     return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Chip(
-                        label: Text(
-                          'Small',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.pink.shade300,
-                      ),
-                      Chip(
-                        label: Text(
-                          'Medium',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.pink.shade300,
-                      ),
-                      Chip(
-                        label: Text(
-                          'Large',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.pink.shade300,
-                      ),
-                    ],
-                  );
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Obx(
+          () => Expanded(
+            child: RadioListTile(
+              title: FittedBox(
+                  child: Text(
+                'Small',
+                style: Theme.of(context).textTheme.headline6,
+              )),
+              value: 1,
+              onChanged: (val) {
+                _orderController.setSelectedCupSize(val);
+              },
+              groupValue: _orderController.getSelectedCupSize,
+            ),
+          ),
+        ),
+        Obx(
+          () => Expanded(
+            child: RadioListTile(
+              title: FittedBox(
+                child: Text('Medium',
+                    style: Theme.of(context).textTheme.headline6),
+              ),
+              value: 2,
+              onChanged: (val) {
+                _orderController.setSelectedCupSize(val);
+              },
+              groupValue: _orderController.getSelectedCupSize,
+            ),
+          ),
+        ),
+        Obx(
+          () => Expanded(
+            child: RadioListTile(
+              title: FittedBox(
+                  child: Text('Large',
+                      style: Theme.of(context).textTheme.headline6)),
+              value: 3,
+              onChanged: (val) {
+                _orderController.setSelectedCupSize(val);
+              },
+              groupValue: _orderController.getSelectedCupSize,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget buildTotalAmountWidget(BuildContext context) {
     return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Total Amount:',
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Obx(
-                          () => Text(
-                            '\$ ${_orderController.getTotalPrice}',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Total Amount:',
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Obx(
+            () => Text(
+              '\$ ${_orderController.getTotalPrice}',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget getHeaderWithQuantity(BuildContext context) {
     return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          _orderController.getCoffee.name,
-                          style: Theme.of(context).textTheme.headline5,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            _orderController.getCoffee.name,
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
+        Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  _orderController.addQuantity();
+                },
+                child: Chip(
+                  label: Icon(
+                    Icons.add,
+                    size: 18,
+                    color: Colors.white,
+                  ),
+                  backgroundColor: Colors.pink.shade400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Obx(() => Text(_orderController.getQuantity.toString())),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  _orderController.lessQuantity();
+                },
+                child: Chip(
+                  label: Text(
+                    '- ',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          color: Colors.white,
+                          fontSize: 18,
                         ),
-                      ),
-                      Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                _orderController.addQuantity();
-                              },
-                              child: Chip(
-                                label: Icon(
-                                  Icons.add,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                                backgroundColor: Colors.pink.shade400,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Obx(() => Text(
-                                _orderController.getQuantity.toString())),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                _orderController.lessQuantity();
-                              },
-                              child: Chip(
-                                label: Text(
-                                  '- ',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                ),
-                                backgroundColor: Colors.pink.shade400,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
+                  ),
+                  backgroundColor: Colors.pink.shade400,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
